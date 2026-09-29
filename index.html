@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>DayForge</title>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>DayForge</h1>
+      <p id="todayLabel">Your day, without the calendar Tetris.</p>
+    </div>
+    <div class="top-actions">
+      <button id="refreshBtn" class="ghost">Refresh</button>
+      <button id="googleBtn">Connect Google Calendar</button>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Main navigation">
+    <button data-tab="today" class="active">Today</button>
+    <button data-tab="tasks">Tasks</button>
+    <button data-tab="schedule">Schedule</button>
+    <button data-tab="settings">Settings</button>
+  </nav>
+
+  <main>
+    <section id="tab-today" class="tab active">
+      <div class="hero-grid">
+        <article class="card focus-card">
+          <div class="eyebrow">BEST NEXT MOVE</div>
+          <h2 id="nextMoveTitle">Loading…</h2>
+          <p id="nextMoveMeta" class="muted"></p>
+          <div class="button-row">
+            <button id="startTaskBtn">Start / Focus</button>
+            <button id="completeSuggestedBtn" class="ghost">Mark done</button>
+          </div>
+        </article>
+        <article class="card">
+          <div class="eyebrow">TODAY'S LOAD</div>
+          <div class="load-line"><strong id="loadLabel">Balanced</strong><span id="loadCount">0 tasks</span></div>
+          <div class="meter"><div id="loadMeter"></div></div>
+          <p id="loadHint" class="muted"></p>
+        </article>
+      </div>
+
+      <div class="content-grid">
+        <section>
+          <div class="section-head"><h2>Timeline</h2><span id="freeTimeText" class="muted"></span></div>
+          <div id="timeline" class="timeline"></div>
+        </section>
+        <aside>
+          <div class="section-head"><h2>Coming up</h2></div>
+          <div id="upcoming" class="stack"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="tab-tasks" class="tab">
+      <div class="section-head">
+        <div><h2>Tasks</h2><p class="muted">Assignments, projects, errands, and whatever else is trying to eat your week.</p></div>
+        <button id="newTaskBtn">+ Add task</button>
+      </div>
+      <div class="filters">
+        <select id="taskFilter">
+          <option value="open">Open tasks</option>
+          <option value="all">All tasks</option>
+          <option value="done">Completed</option>
+        </select>
+      </div>
+      <div id="taskList" class="stack"></div>
+    </section>
+
+    <section id="tab-schedule" class="tab">
+      <div class="section-head"><div><h2>Weekly anchors</h2><p class="muted">Hard commitments are protected first. Flexible work goes around them.</p></div></div>
+      <div id="weekGrid" class="week-grid"></div>
+      <p class="note">Marching Band was intentionally not added as a fixed block. Your current schedule here is based on the routines and meetings you told me you still use.</p>
+    </section>
+
+    <section id="tab-settings" class="tab">
+      <div class="settings-grid">
+        <article class="card">
+          <h2>Planning preferences</h2>
+          <label>Earliest schoolwork time <input id="workStart" type="time" value="07:00"></label>
+          <label>Stop scheduling work after <input id="workEnd" type="time" value="22:00"></label>
+          <label>Transition buffer before events <input id="bufferMin" type="number" min="0" max="60" value="20"></label>
+          <button id="savePrefsBtn">Save preferences</button>
+        </article>
+        <article class="card">
+          <h2>Google Calendar</h2>
+          <p class="muted">For local testing, paste your OAuth Web Client ID. DayForge only requests Calendar event access when you click Connect.</p>
+          <label>Google OAuth Client ID <input id="clientIdInput" type="text" placeholder="123...apps.googleusercontent.com"></label>
+          <button id="saveClientBtn">Save Client ID</button>
+          <p id="googleStatus" class="status muted">Not connected.</p>
+        </article>
+        <article class="card">
+          <h2>Data</h2>
+          <div class="button-row"><button id="exportBtn" class="ghost">Export JSON</button><button id="resetBtn" class="danger ghost">Reset local data</button></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="taskDialog">
+    <form id="taskForm" method="dialog">
+      <h2>Add task</h2>
+      <label>Task name <input id="taskTitle" required maxlength="120"></label>
+      <label>Class / category <input id="taskCourse" maxlength="80" placeholder="CYBR 221, Personal, Club…"></label>
+      <div class="two-col">
+        <label>Due <input id="taskDue" type="datetime-local"></label>
+        <label>Estimated minutes <input id="taskMinutes" type="number" min="5" max="720" step="5" value="45"></label>
+      </div>
+      <label>Priority
+        <select id="taskPriority"><option value="1">Low</option><option value="2" selected>Normal</option><option value="3">High</option></select>
+      </label>
+      <div class="dialog-actions"><button type="button" id="cancelTaskBtn" class="ghost">Cancel</button><button type="submit">Save task</button></div>
+    </form>
+  </dialog>
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="app.js"></script>
+</body>
+</html>
