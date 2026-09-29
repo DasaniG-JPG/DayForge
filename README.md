@@ -2,7 +2,7 @@
 
 A local-first student time-management web app built around fixed commitments, flexible tasks, assignment deadlines, and Google Calendar.
 
-## Run it today
+## Run it
 
 From this folder:
 
@@ -28,7 +28,7 @@ DayForge uses Google Identity Services in the browser and requests read-only Cal
 
 For a deployed GitHub Pages version, add that HTTPS site origin to the same OAuth client.
 
-## What v0.1 already does
+## What v0.1 does
 
 - Preloads the weekly class/routine skeleton provided in chat.
 - Preloads the nearest known Fall 2026 assignment deadlines from the supplied course PDFs.
